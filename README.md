@@ -1,18 +1,4 @@
-# LAB-3-4-IETI
-<p align="center">
-  <a href="https://material-ui.com/" rel="noopener" target="_blank"><img width="150" src="https://material-ui.com/static/logo.svg" alt="Material-UI logo"></a></p>
-</p>
-
-<h1 align="center">1.3 React Material</h1>
-
-[![npm](https://img.shields.io/badge/npm-v6.13.4-red.svg)](https://www.npmjs.com/)
-[![npx](https://img.shields.io/badge/dependencies-npx-orange)](https://www.npmjs.com/package/npx)
-[![material](https://img.shields.io/badge/dependencies-material--ui-yellow)](https://material-ui.com/)
-[![react-router](https://img.shields.io/badge/dependencies-react--router-blue)](https://reacttraining.com/react-router/)
-
-
-
-React project using Material-UI library.
+# LAB-6-Front
 
 ## Author
   * [Fernando Barrera Barrera](https://github.com/fernando-b15) :guitar:
