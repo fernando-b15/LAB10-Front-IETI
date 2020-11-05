@@ -9,10 +9,6 @@
   * **Mail:** admin@hotmail.com
   * **Password:** admin
   
-## Despliegue
-
- [![Deploy](https://www.herokucdn.com/deploy/button.svg)](http://lab6ieti.herokuapp.com/)
-  
 ## Available Scripts
 
 In the project directory, you can run:
