@@ -1,4 +1,4 @@
-# LAB-6-Front
+# LAB-10-Front
 
 ## Author
   * [Fernando Barrera Barrera](https://github.com/fernando-b15) :guitar:
