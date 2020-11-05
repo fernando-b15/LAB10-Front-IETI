@@ -7,7 +7,8 @@ import {Login} from './components/Login';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import  { Redirect } from 'react-router-dom'
+import  { Redirect } from 'react-router-dom';
+import axios from "axios";
 
 class App extends Component {
 	constructor(props) {
@@ -23,22 +24,13 @@ class App extends Component {
 		
 	}
 	componentDidMount() {
-        fetch('http://apitaskplannerhope.southcentralus.azurecontainer.io:8080/users')
-            .then(response => response.json())
-            .then(data => {
-                let userList = [];
-				console.log(data);
-                data.forEach(function (user) {
-					console.log(user);
-                    userList.push(user)
-
-                });
-				setTimeout(() => {
-				  this.setState({userList: userList});
-				}, 100);
-				console.log(this.state.userList)
-				
-            });
+        axios.get('http://localhost:8080/api/todo')
+				.then(function (response) 
+				{	
+					localStorage.setItem("items", JSON.stringify(response.data));
+				})
+				.catch(function (error)
+					{ console.log(error);alert("Error al consultar todo list");});
 			
     }
 	render(){

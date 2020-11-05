@@ -14,6 +14,7 @@ import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import {MuiPickersUtilsProvider,KeyboardDatePicker} from "@material-ui/pickers";
 import moment from "moment";
+import axios from "axios";
 
 
 
@@ -22,12 +23,13 @@ import moment from "moment";
 export class NewTask extends React.Component{
 	constructor(props) {
 		super(props);
-		this.state={descripcion:"",responsable:{name:"",email:""},estado:"",dueDate: moment()};
+		this.state={descripcion:"",responsable:{name:"",email:""},estado:"",dueDate: moment(),file: null};
         this.handleChangeDescripcion=this.handleChangeDescripcion.bind(this);
         this.handleChangeResponsable=this.handleChangeResponsable.bind(this);
         this.handleChangeStatus=this.handleChangeStatus.bind(this);
         this.handleChangeDueDate=this.handleChangeDueDate.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 	render(){
 		return(
@@ -61,8 +63,8 @@ export class NewTask extends React.Component{
                             fullWidth
                             KeyboardButtonProps={{"aria-label": "change date"}}
                         />
-						</MuiPickersUtilsProvider>	
-					   
+						</MuiPickersUtilsProvider>
+						<input type="file" id="file" onChange={this.handleInputChange}/>	
 						<br/>
 						<br/>
 						<Button type="submit" variant="contained" color="primary">
@@ -74,6 +76,11 @@ export class NewTask extends React.Component{
 				</form>
 			</React.Fragment>	
         );
+	}
+	handleInputChange(e) {
+		this.setState({
+			file: e.target.files[0]
+		});                
 	}
 	handleChangeDescripcion(e){
         this.setState({descripcion: e.target.value });
@@ -93,18 +100,46 @@ export class NewTask extends React.Component{
     };
 	handleSubmit(e){		
 		e.preventDefault();
-		console.log(this.state);		
-		if (localStorage.getItem("items") === null) {
-			  var items = [this.state];
-			  console.log(items);
-			  localStorage.setItem("items", JSON.stringify(items));
-		} else {
-          let items = JSON.parse(localStorage.getItem("items"));
-          items.push(this.state);
-		  console.log(items);
-          localStorage.setItem("items", JSON.stringify(items));
-        }
-		window.location.href = "/home";
+		const todo = {
+				description: this.state.descripcion,
+				priority: 5,
+				dueDate: this.state.dueDate,
+				responsible: this.state.responsable,
+				status: this.state.estado
+		};
+		let data = new FormData();
+        data.append('file', this.state.file);
+        axios.post('http://localhost:8080/api/files', data)
+            .then(function (response) {
+            console.log("file uploaded!", response);
+			console.log(todo);
+			axios.post('http://localhost:8080/api/todo', {
+				description: todo.description,
+				priority: todo.priority,
+				dueDate: todo.dueDate,
+				responsible: todo.responsible,
+				status: todo.status,
+				fileUrl: response.data
 
+			})
+			.then(function (response) {
+				alert("Creacion exitosa !!!!!!!!!!!");
+				axios.get('http://localhost:8080/api/todo')
+				.then(function (response) 
+				{	
+					localStorage.setItem("items", JSON.stringify(response.data));
+				})
+				.catch(function (error)
+					{ console.log(error);alert("Error al consultar todo list");});	
+				
+			})
+			  .catch(function (error) { 
+				console.log(error);
+				alert("Error al crear USER");
+			})
+        })
+        .catch(function (error) {
+            console.log("failed file upload", error);
+        });		
 	}
 }

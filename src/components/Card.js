@@ -5,6 +5,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import ResponsiveDrawer from './ResponsiveDrawer';
 import moment from "moment";
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
+import Fab from '@material-ui/core/Fab';
 
 
 const useStyles = makeStyles({
@@ -27,6 +29,18 @@ const useStyles = makeStyles({
 export default function OutlinedCard(props) {
   const classes = useStyles();
   
+  function condicional(){
+	  if(props.fileUrl.split(".")[1]==="pdf"){
+		  return (
+		  <Fab color="primary" aria-label="file" href={props.fileUrl}>
+			<PictureAsPdfIcon />
+		  </Fab> );
+	  }
+	  else{
+		  return (<img src={props.fileUrl} />);
+	  }
+  }
+  
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent>
@@ -40,6 +54,8 @@ export default function OutlinedCard(props) {
           {props.name} - {moment(props.dueDate).format("dd-MM-yyyy")}
         </Typography>
       </CardContent>
+	  {condicional()}
+	 	
     </Card>
   );
 }

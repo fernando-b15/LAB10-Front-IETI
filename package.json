@@ -1,5 +1,5 @@
 {
-  "name": "LAB6-Front-IETI",
+  "name": "LAB10-Front-IETI",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -16,6 +16,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "DatePicker": "^2.0.0",
+    "axios": "^0.21.0",
     "clean": "^4.0.2",
     "clear": "^0.1.0",
     "date-fns": "^2.0.0-beta.5",

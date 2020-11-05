@@ -14,12 +14,15 @@ export default class CardTask extends React.Component {
 		console.log(this.props.task);
         const cardTask = this.props.task.map((task, i) => {
             return (
-                <Card
-                    descripcion={task.descripcion}
-                    name={task.responsable.name}
-                    status={task.estado}
-                    dueDate={task.dueDate} 
-                />
+			<div>
+					<Card
+						descripcion={task.description}
+						name={task.responsible.name}
+						status={task.status}
+						dueDate={task.dueDate}
+						fileUrl={task.fileUrl}	
+					/>
+				</div>
             );
         })
         return (
